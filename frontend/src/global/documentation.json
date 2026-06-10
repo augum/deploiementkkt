@@ -1,0 +1,1801 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "url": "https://kikwit-backend.onrender.com",
+      "description": "Generated server url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Categorie",
+      "description": "Gestion des categories des ESS"
+    },
+    {
+      "name": "Source d'energie",
+      "description": "La gestion des sources d'energie"
+    },
+    {
+      "name": "Utilisateur",
+      "description": "Gestion des utilisateurs"
+    },
+    {
+      "name": "Indicateur technique",
+      "description": "Rapport technique de chaque structure de santé"
+    },
+    {
+      "name": "Gestion medicament",
+      "description": "Gestion des médicaments d'une structure de santé"
+    },
+    {
+      "name": "Gestion des personnels",
+      "description": "La gestion des personnels des differentes structures"
+    },
+    {
+      "name": "Etablissement",
+      "description": "Gestion des structures de santé"
+    },
+    {
+      "name": "CartographieStructure",
+      "description": "Cartographie des structures de santé"
+    },
+    {
+      "name": "Role",
+      "description": "Gestion des roles"
+    }
+  ],
+  "paths": {
+    "/api/categories/{id}": {
+      "get": {
+        "tags": [
+          "Categorie"
+        ],
+        "summary": "Afficher une categorie",
+        "operationId": "getOne",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/categorie"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Categorie"
+        ],
+        "summary": "Modifier une categorie",
+        "operationId": "update",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/categorie"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/categorie"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Categorie"
+        ],
+        "summary": "Supprimé une categorie",
+        "operationId": "delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/utilisateurs": {
+      "get": {
+        "tags": [
+          "Utilisateur"
+        ],
+        "summary": "Liste des utilisateurs",
+        "operationId": "list",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/utilisateur"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Utilisateur"
+        ],
+        "summary": "Creation des utilisateurs",
+        "operationId": "save",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/utilisateur"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/utilisateur"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/sources": {
+      "get": {
+        "tags": [
+          "Source d'energie"
+        ],
+        "summary": "Liste toutes les sources d'energie",
+        "operationId": "list_1",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/sourceernergie"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Source d'energie"
+        ],
+        "summary": "Enregistrer une informations sur le personnel",
+        "operationId": "save_1",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/sourceernergie"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/sourceernergie"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/roles": {
+      "get": {
+        "tags": [
+          "Role"
+        ],
+        "summary": "listes des roles",
+        "operationId": "lis",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/role"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Role"
+        ],
+        "summary": "Insertion des roles",
+        "operationId": "save_2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/role"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/role"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/personnels": {
+      "get": {
+        "tags": [
+          "Gestion des personnels"
+        ],
+        "summary": "Liste des toutes les informations des personnels des structures",
+        "operationId": "list_2",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/personnel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Gestion des personnels"
+        ],
+        "summary": "Insertion des informations sur les personnels",
+        "operationId": "save_3",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/personnel"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/personnel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/medicaments": {
+      "get": {
+        "tags": [
+          "Gestion medicament"
+        ],
+        "summary": "Liste générale",
+        "operationId": "list_3",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Gestionmedicament"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Gestion medicament"
+        ],
+        "summary": "Enregistrement",
+        "operationId": "save_4",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Gestionmedicament"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Gestionmedicament"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/indicateurs": {
+      "get": {
+        "tags": [
+          "Indicateur technique"
+        ],
+        "summary": "Affiche la liste de tous les indicateurs",
+        "operationId": "list_4",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/indicateur"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Indicateur technique"
+        ],
+        "summary": "Insertion des indicateurs techniques",
+        "operationId": "save_5",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/indicateur"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/indicateur"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/etablissements": {
+      "get": {
+        "tags": [
+          "Etablissement"
+        ],
+        "summary": "Liste des toutes les etablissements",
+        "operationId": "list_5",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/etablissement"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Etablissement"
+        ],
+        "summary": "Enregistrement",
+        "operationId": "save_6",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/etablissement"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/etablissement"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/categories": {
+      "get": {
+        "tags": [
+          "Categorie"
+        ],
+        "summary": "Lister toutes les categories",
+        "operationId": "list_6",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/categorie"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Categorie"
+        ],
+        "summary": "Insertion de la categorie",
+        "operationId": "save_7",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/categorie"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/categorie"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/cartographies": {
+      "get": {
+        "tags": [
+          "CartographieStructure"
+        ],
+        "summary": "Liste des cartographies",
+        "operationId": "getAll",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/cartographie"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "CartographieStructure"
+        ],
+        "summary": "Enregistrement",
+        "operationId": "save_8",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cartographie"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/cartographie"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/utilisateurs/{id}": {
+      "get": {
+        "tags": [
+          "Utilisateur"
+        ],
+        "summary": "Selection d'un utilisateur",
+        "operationId": "getUtilisateur",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/utilisateur"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Utilisateur"
+        ],
+        "summary": "Suppression d'un utilisateur",
+        "operationId": "delete_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Utilisateur"
+        ],
+        "summary": "Modification d'un utilisateur",
+        "operationId": "update_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/utilisateur"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/utilisateur"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/sources/{id}": {
+      "delete": {
+        "tags": [
+          "Source d'energie"
+        ],
+        "summary": "Suppression d'une source energie",
+        "operationId": "delete_2",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Source d'energie"
+        ],
+        "summary": "Modification d'une source energie",
+        "operationId": "update_2",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/sourceernergie"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/sourceernergie"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/roles/{id}": {
+      "get": {
+        "tags": [
+          "Role"
+        ],
+        "summary": "Afficher un role à partir de son id",
+        "operationId": "getOne_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/role"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Role"
+        ],
+        "summary": "Supprimer des roles",
+        "operationId": "delete_3",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Role"
+        ],
+        "summary": "Modifications des roles",
+        "operationId": "update_3",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/role"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/role"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/personnels/{id}": {
+      "delete": {
+        "tags": [
+          "Gestion des personnels"
+        ],
+        "summary": "Supprimé un personnel",
+        "operationId": "delete_4",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Gestion des personnels"
+        ],
+        "summary": "Modifications d'une information sur les personnels des structures",
+        "operationId": "update_4",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/personnel"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/personnel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/medicaments/{id}": {
+      "get": {
+        "tags": [
+          "Gestion medicament"
+        ],
+        "summary": "Affiche un enregistrement",
+        "operationId": "getOne_2",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Gestionmedicament"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Gestion medicament"
+        ],
+        "summary": "Supprimé une gestion medicament",
+        "operationId": "delete_5",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Gestion medicament"
+        ],
+        "summary": "Modification d'un enregistrement",
+        "operationId": "update_5",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Gestionmedicament"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Gestionmedicament"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/indicateurs/{id}": {
+      "delete": {
+        "tags": [
+          "Indicateur technique"
+        ],
+        "summary": "Supprimé un indicateur technique",
+        "operationId": "delete_6",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Indicateur technique"
+        ],
+        "summary": "Modification d'un indicateur technique",
+        "operationId": "update_6",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/indicateur"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/indicateur"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/etablissements/{id}": {
+      "get": {
+        "tags": [
+          "Etablissement"
+        ],
+        "summary": "Affiche un etablissement",
+        "operationId": "getOne_3",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/etablissement"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Etablissement"
+        ],
+        "summary": "Supprimé un etablissement",
+        "operationId": "delete_7",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Etablissement"
+        ],
+        "summary": "modification d'un etablissement",
+        "operationId": "update_7",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/etablissement"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/etablissement"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/cartographies/{id}": {
+      "get": {
+        "tags": [
+          "CartographieStructure"
+        ],
+        "summary": "Affiche une seule cartographie",
+        "operationId": "getOne_4",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/cartographie"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "CartographieStructure"
+        ],
+        "summary": "Suppression d'une cartographie",
+        "operationId": "delete_8",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "CartographieStructure"
+        ],
+        "summary": "Modification d'une cartographie",
+        "operationId": "update_8",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cartographie"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/cartographie"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "categorie": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Identifiant unique",
+            "example": 1
+          },
+          "libelle": {
+            "type": "string",
+            "description": "Le libellé de la categorie",
+            "example": "Hopital général"
+          }
+        }
+      },
+      "utilisateur": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "id de l'utilisateur",
+            "example": 1
+          },
+          "nom": {
+            "type": "string",
+            "description": "nom de l'utilisateur",
+            "example": "Itond"
+          },
+          "postnom": {
+            "type": "string",
+            "description": "postnom de l'utilisateur",
+            "example": "Monguale"
+          },
+          "prenom": {
+            "type": "string",
+            "description": "prenom de l'utilisateur",
+            "example": "Defgra"
+          },
+          "login": {
+            "type": "string",
+            "description": "Login de l'utilisateur",
+            "example": "Makuma"
+          },
+          "password": {
+            "type": "string",
+            "description": "Mot de passe",
+            "example": "Fi1@234"
+          },
+          "id_role": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Identifiant du role",
+            "example": 1
+          },
+          "id_ess": {
+            "type": "integer",
+            "format": "int64",
+            "description": "identifiant de l'etablissement",
+            "example": 1
+          },
+          "email": {
+            "type": "string",
+            "description": "email de l'utilisateur",
+            "example": "exemple@gmail.com"
+          }
+        }
+      },
+      "sourceernergie": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Identifiant unique",
+            "example": 10
+          },
+          "libelle": {
+            "type": "string",
+            "description": "Libellé de la source d'energie",
+            "example": "Panneau solaire"
+          },
+          "typeEnergie": {
+            "type": "string",
+            "description": "Type source d'energie",
+            "enum": [
+              "Electric",
+              "Hydrolic"
+            ],
+            "example": "Electric"
+          }
+        }
+      },
+      "role": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "identifiant unique du role",
+            "example": 1
+          },
+          "libelle": {
+            "type": "string",
+            "description": "libelle du role",
+            "example": "Administrateur"
+          }
+        }
+      },
+      "personnel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Identifiant unique",
+            "example": 10
+          },
+          "id_ess": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Identifiant de la structure",
+            "example": 10
+          },
+          "nb_agent_matricule": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Nombre des agents matriculés",
+            "example": 10
+          },
+          "nb_agent_nu": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Nombre des agents nouvelle unité",
+            "example": 10
+          },
+          "nb_nv_agent_matricule": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Nombre des nouveaux agents matriculés",
+            "example": 10
+          },
+          "nb_nv_agent_salaireEtat": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Nombre des nouveaux agents salariés de l'Etat",
+            "example": 10
+          },
+          "nb_nv_agent_primeEtat": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Nombre des nouveaux agents recevant la prime de l'Etat",
+            "example": 10
+          },
+          "nb_agent_primeLocale": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Nombre des nouveaux agents recevant la prime locale",
+            "example": 10
+          }
+        }
+      },
+      "Gestionmedicament": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Identifiant unique",
+            "example": 10
+          },
+          "id_ess": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Identifiant de la structure",
+            "example": 25
+          },
+          "periode": {
+            "type": "string",
+            "format": "date",
+            "description": "La date de l'enregistrement ",
+            "example": "2026-05-15"
+          },
+          "capital_depart": {
+            "type": "number",
+            "format": "double",
+            "description": "Le capital de départ",
+            "example": 1000
+          },
+          "capital_fin_moi": {
+            "type": "number",
+            "format": "double",
+            "description": "Le capital à la fin du mois",
+            "example": 15000
+          },
+          "croissance": {
+            "type": "string",
+            "description": "Croissance",
+            "example": "50%"
+          },
+          "benefice": {
+            "type": "string",
+            "description": "Bénéfice",
+            "example": "5000$"
+          }
+        }
+      },
+      "indicateur": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Identifiant unique",
+            "example": 25
+          },
+          "periode": {
+            "type": "string",
+            "format": "date",
+            "description": "la date de l'enregistrement",
+            "example": "2026-05-15"
+          },
+          "id_ess": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Identifiant de la structure de santé",
+            "example": 25
+          },
+          "nv_casCuratif": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Nombre des nouveaux cas curatifs",
+            "example": 25
+          },
+          "cpn1": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Nombre de premier cpn",
+            "example": 25
+          },
+          "cpn1_16": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Nombre de cpn de la première à la seizième semaine",
+            "example": 25
+          },
+          "cpn4": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Nombre de cpn 4",
+            "example": 25
+          },
+          "apa": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Nombre APA",
+            "example": 25
+          },
+          "nv_acc_pf": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Nombre nouveau accouchement",
+            "example": 25
+          },
+          "diabeteNotification": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Nombre de diabete notification",
+            "example": 25
+          },
+          "transfusion": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Nombre de transfusion",
+            "example": 25
+          },
+          "transfusionTeste4Marquer": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Nombre de transfusion testée au 4 marqueurs",
+            "example": 25
+          },
+          "dc_neonat": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Nombre de décès neonatal",
+            "example": 25
+          },
+          "dc_maternel": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Nombre de décès maternel",
+            "example": 25
+          },
+          "chirurgieMajeure": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Nombre de chirurgie majeure",
+            "example": 25
+          },
+          "cesarienne": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Nombre de cesarienne",
+            "example": 25
+          },
+          "hospitalise": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Nombre des hospitalisés",
+            "example": 25
+          },
+          "dc_av48h": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Nombre de décès avant 48H",
+            "example": 25
+          },
+          "dc_ap48h": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Nombre de décès après 48H",
+            "example": 25
+          },
+          "infePostOp": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Nombre d'infection après opération'",
+            "example": 25
+          },
+          "diarheSimple": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Nombre de diarhé simple",
+            "example": 25
+          }
+        }
+      },
+      "etablissement": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Identifiant unique",
+            "example": 1
+          },
+          "nom": {
+            "type": "string",
+            "description": "Nom de l'etablissement",
+            "example": "Hopital Mpanga"
+          },
+          "zone": {
+            "type": "string",
+            "description": "La zone de santé",
+            "example": "Kikwit"
+          },
+          "id_cat": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Identifiant de la catégorie",
+            "example": 1
+          }
+        }
+      },
+      "cartographie": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Identifiant unique",
+            "example": 1
+          },
+          "id_ess": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Identifiant de la structure de santé",
+            "example": 1
+          },
+          "distance_bdom": {
+            "type": "string",
+            "description": "Distance de la structure avec le bdom",
+            "example": "10km"
+          },
+          "population_cible": {
+            "type": "string",
+            "description": "La population ciblée par la structure",
+            "example": "Rural"
+          },
+          "id_se": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Identifiant source d'energie",
+            "example": 1
+          },
+          "presence_blocop": {
+            "type": "boolean",
+            "description": "La structure a un bloc operatoire",
+            "example": true
+          },
+          "capacite_transfusion": {
+            "type": "boolean",
+            "description": "La structure peut faire des transfusion",
+            "example": true
+          },
+          "electricite": {
+            "type": "string",
+            "description": "Comment la structure est elle électrifiée",
+            "example": "Snel"
+          },
+          "eau": {
+            "type": "string",
+            "description": "Source d'eau",
+            "example": "Forage"
+          },
+          "reabilitation": {
+            "type": "string",
+            "description": "La structure a subi des reabilitation",
+            "example": "oui"
+          },
+          "forage": {
+            "type": "string",
+            "description": "Dispose d'un forage",
+            "example": "oui"
+          },
+          "incinerateur": {
+            "type": "string",
+            "description": "Possede un incinerateur",
+            "example": "oui"
+          },
+          "equipement_biom": {
+            "type": "string",
+            "description": "Possede des equipements biomédicaux",
+            "example": "Non"
+          }
+        }
+      }
+    }
+  }
+}
