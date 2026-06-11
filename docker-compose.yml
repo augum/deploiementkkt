@@ -6,7 +6,7 @@ services:
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: Fiston+@1984
-      MYSQL_DATABASE: bdom-db
+      MYSQL_DATABASE: bdom_db
       MYSQL_USER: appuser
       MYSQL_PASSWORD: Fiston+@1984
     volumes:
