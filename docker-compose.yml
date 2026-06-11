@@ -4,26 +4,40 @@ services:
     container_name: mysql
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: bdom_db
-      MYSQL_USER: app_user
-      MYSQL_PASSWORD: Fiston+@1984
       MYSQL_ROOT_PASSWORD: Fiston+@1984
+      MYSQL_DATABASE: bdom-db
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: Fiston+@1984
     volumes:
       - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-pchange-root-password"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   backend:
-    build: ./backend
+    build:
+      context: ./backend
     container_name: backend
     restart: unless-stopped
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/bdom_db
-      SPRING_DATASOURCE_USERNAME: app_user
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/bdom-db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: appuser
       SPRING_DATASOURCE_PASSWORD: Fiston+@1984
+      SERVER_PORT: 8080
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
     container_name: frontend
     restart: unless-stopped
     depends_on:
