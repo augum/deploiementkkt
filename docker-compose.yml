@@ -1,4 +1,5 @@
-services:
+
+  services:
   mysql:
     image: mysql:8.0
     container_name: mysql
@@ -10,13 +11,13 @@ services:
       MYSQL_PASSWORD: Fiston+@1984
     volumes:
       - mysql_data:/var/lib/mysql
-    ports:
-      - "3306:3306"
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-pchange-root-password"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-pFiston+@1984"]
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - app-network
 
   backend:
     build:
@@ -25,15 +26,22 @@ services:
     restart: unless-stopped
     environment:
       SPRING_PROFILES_ACTIVE: prod
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/bdom-db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/bdom_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: appuser
       SPRING_DATASOURCE_PASSWORD: Fiston+@1984
       SERVER_PORT: 8080
     depends_on:
       mysql:
         condition: service_healthy
-    ports:
-      - "8080:8080"
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.backend.rule=Host(`api.example.com`)
+      - traefik.http.routers.backend.entrypoints=websecure
+      - traefik.http.routers.backend.tls.certresolver=letsencrypt
+      - traefik.http.services.backend.loadbalancer.server.port=8080
+    networks:
+      - app-network
+      - traefik-proxy
 
   frontend:
     build:
@@ -42,8 +50,21 @@ services:
     restart: unless-stopped
     depends_on:
       - backend
-    ports:
-      - "80:80"
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.frontend.rule=Host(`example.com`)
+      - traefik.http.routers.frontend.entrypoints=websecure
+      - traefik.http.routers.frontend.tls.certresolver=letsencrypt
+      - traefik.http.services.frontend.loadbalancer.server.port=80
+    networks:
+      - app-network
+      - traefik-proxy
 
 volumes:
   mysql_data:
+
+networks:
+  app-network:
+    driver: bridge
+  traefik-proxy:
+    external: true
