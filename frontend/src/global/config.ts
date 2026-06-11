@@ -1,6 +1,6 @@
 // Configuration globale de l'application
 // Toutes les requêtes API doivent utiliser BASE_URL.
-export const BASE_URL = "http://localhost:8082";
+export const BASE_URL = "https://api.bdomkikwit.tech";
 
 export const API = {
   ETABLISSEMENTS: "/api/etablissements",
