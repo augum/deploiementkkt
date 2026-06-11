@@ -1,4 +1,3 @@
-# frontend/Dockerfile
 FROM node:20.19 AS build
 WORKDIR /app
 COPY package*.json ./
