@@ -33,7 +33,7 @@ services:
       - traefik-proxy
     labels:
       - traefik.enable=true
-      - traefik.http.routers.backend.rule=Host(`bdomkikwit.tech`) && PathPrefix(`/api`)
+      - traefik.http.routers.backend.rule=Host(`api.bdomkikwit.tech`)
       - traefik.http.routers.backend.entrypoints=websecure
       - traefik.http.routers.backend.tls.certresolver=letsencrypt
       - traefik.http.services.backend.loadbalancer.server.port=8080
