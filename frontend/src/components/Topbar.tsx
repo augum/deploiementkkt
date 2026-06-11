@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useNavigate } from "@tanstack/react-router";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { logout } from "@/redux/reducers/authSlice";
 
@@ -11,7 +11,7 @@ export function Topbar({ title }: { title: string }) {
 
   const handleLogout = () => {
     dispatch(logout());
-    navigate({ to: "/login" });
+    navigate("/login");
   };
 
   return (

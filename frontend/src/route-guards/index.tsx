@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Navigate } from "@tanstack/react-router";
+import { Navigate } from "react-router-dom";
 import { useAppSelector } from "@/redux/store";
 import { ROLE_ADMIN, ROLE_GESTIONNAIRE } from "@/global/constants";
 

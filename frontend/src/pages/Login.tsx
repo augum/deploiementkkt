@@ -5,7 +5,7 @@ import * as yup from "yup";
 import { TextField, Stack, Alert } from "@mui/material";
 import { LoadingButton } from "@/components/LoadingButton";
 import { toast } from "react-toastify";
-import { useNavigate } from "@tanstack/react-router";
+import { useNavigate } from "react-router-dom";
 import { AuthLayout } from "@/layouts/AuthLayout";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { loginThunk } from "@/redux/reducers/authSlice";
@@ -30,7 +30,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (user && role) {
-      navigate({ to: role === ROLE_ADMIN ? "/admin/dashboard" : "/gestionnaire/dashboard" });
+      navigate(role === ROLE_ADMIN ? "/admin/dashboard" : "/gestionnaire/dashboard");
     }
   }, [user, role, navigate]);
 
