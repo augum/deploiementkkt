@@ -55,7 +55,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         mail.setTo(saveUtilisateur.getEmail());
         mail.setSubject("Bienvenu sur Sclinik");
         mail.setText("Bienvenu sur Sclinik "+saveUtilisateur.getNom()+" "+saveUtilisateur.getPrenom()+ " un compte a été crée pour vous et voici les informations pour vous connecter  " +
-                " : cliquer sur le lien: " + "http://localhost:8081/login" +
+                " : cliquer sur le lien: " + "https://bdomkikwit.tech/login" +
                 " Login: " + saveUtilisateur.getLogin() + " Mot de passe: " + saveUtilisateur.getPassword());
         mailSender.send(mail);
         //send mail by sendgri
@@ -150,7 +150,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         mail.setTo(getUtilisateur.getEmail());
         mail.setSubject("Bienvenu sur Sclinik");
         mail.setText("Bienvenu sur Sclinik "+getUtilisateur.getNom()+" "+getUtilisateur.getPrenom()+ " Votre compte a été réinitialisé et voici les informations pour vous connecter  " +
-                " : cliquer sur le lien: " + "http://localhost:8081/login" +
+                " : cliquer sur le lien: " + "https://bdomkikwit.tech/login" +
                 " Login: " + getUtilisateur.getLogin() + " Mot de passe: " + getUtilisateur.getPassword());
         mailSender.send(mail);
         return mapper.toUtilisateurResponseDto(save);
