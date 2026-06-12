@@ -3,10 +3,10 @@ services:
     image: mysql:8.0
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: bdom_db
-      MYSQL_USER: appuser
-      MYSQL_PASSWORD: Fiston+@1984
-      MYSQL_ROOT_PASSWORD: Fiston+@1984
+      MYSQL_DATABASE: ${BD_NAME}
+      MYSQL_USER: ${BD_USER}
+      MYSQL_PASSWORD: ${BD_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${ROOT_PASSWORD}
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
@@ -21,9 +21,9 @@ services:
     build: ./backend
     restart: unless-stopped
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/bdom_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: appuser
-      SPRING_DATASOURCE_PASSWORD: Fiston+@1984
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/${BD_NAME}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: ${BD_USER}
+      SPRING_DATASOURCE_PASSWORD: ${BD_PASSWORD}
       SERVER_PORT: 8080
       SMTP_HOST: ${SMTP_HOST}
       SMTP_PORT: ${SMTP_PORT}
