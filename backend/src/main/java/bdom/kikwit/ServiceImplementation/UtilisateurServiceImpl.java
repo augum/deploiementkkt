@@ -51,7 +51,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         Utilisateur utilisateur = mapper.fromUtilisateurRequestDto(requestDto);
         Utilisateur saveUtilisateur = repository.save(utilisateur);
         SimpleMailMessage mail = new SimpleMailMessage();
-        mail.setFrom("augumakuma@gmail.com");
+        mail.setFrom("bdomkikwit2026@gmail.com");
         mail.setTo(saveUtilisateur.getEmail());
         mail.setSubject("Bienvenu sur Sclinik");
         mail.setText("Bienvenu sur Sclinik "+saveUtilisateur.getNom()+" "+saveUtilisateur.getPrenom()+ " un compte a été crée pour vous et voici les informations pour vous connecter  " +
@@ -146,7 +146,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         Utilisateur save = repository.save(getUtilisateur);
         //Envoie l'email pour la modification
         SimpleMailMessage mail = new SimpleMailMessage();
-        mail.setFrom("augumakuma@gmail.com");
+        mail.setFrom("bdomkikwit2026@gmail.com");
         mail.setTo(getUtilisateur.getEmail());
         mail.setSubject("Bienvenu sur Sclinik");
         mail.setText("Bienvenu sur Sclinik "+getUtilisateur.getNom()+" "+getUtilisateur.getPrenom()+ " Votre compte a été réinitialisé et voici les informations pour vous connecter  " +
