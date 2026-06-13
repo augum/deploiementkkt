@@ -1,7 +1,6 @@
 services:
   mysql:
     image: mysql:8.0
-    container_name: deploiementkkt-mysql
     restart: unless-stopped
     environment:
       MYSQL_DATABASE: ${BD_NAME}
@@ -11,7 +10,7 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h localhost -p${ROOT_PASSWORD} --silent"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
       timeout: 5s
       retries: 10
@@ -19,10 +18,7 @@ services:
       - internal
 
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    container_name: deploiementkkt-backend
+    build: ./backend
     restart: unless-stopped
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/${BD_NAME}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
@@ -41,33 +37,35 @@ services:
       - traefik-proxy
     labels:
       - traefik.enable=true
-      - traefik.http.routers.api.rule=Host(`api.bdomkikwit.tech`)
-      - traefik.http.routers.api.entrypoints=websecure
-      - traefik.http.routers.api.tls=true
-      - traefik.http.services.api.loadbalancer.server.port=8080
+      - traefik.http.routers.backend.rule=Host(`api.bdomkikwit.tech`)
+      - traefik.http.routers.backend.entrypoints=websecure
+      - traefik.http.routers.backend.tls.certresolver=letsencrypt
+      - traefik.http.services.backend.loadbalancer.server.port=8080
+    
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: deploiementkkt-frontend
+    build: ./frontend
     restart: unless-stopped
+    environment:
+      NODE_ENV: production
     depends_on:
       - backend
     networks:
       - traefik-proxy
+      - internal
     labels:
       - traefik.enable=true
-      - traefik.http.routers.front.rule=Host(`bdomkikwit.tech`)
-      - traefik.http.routers.front.entrypoints=websecure
-      - traefik.http.routers.front.tls=true
-      - traefik.http.services.front.loadbalancer.server.port=80
+      - traefik.http.routers.frontend.rule=Host(`bdomkikwit.tech`)
+      - traefik.http.routers.frontend.entrypoints=websecure
+      - traefik.http.routers.frontend.tls.certresolver=letsencrypt
+      - traefik.http.services.frontend.loadbalancer.server.port=80
 
 volumes:
   mysql_data:
+  traefik_letsencrypt:
 
 networks:
-  internal:
-    driver: bridge
   traefik-proxy:
     external: true
+  internal:
+    driver: bridge
