@@ -146,11 +146,22 @@ export default function AdminConsultation() {
     return `${m[3]}-${m[2]}-${m[1]}`;
   };
 
-  const indPeriodeLabel = useMemo(() => {
-    if (indFrom && indTo) return `Du ${formatDateFr(indFrom)} au ${formatDateFr(indTo)}`;
-    if (indFrom) return `À partir du ${formatDateFr(indFrom)}`;
-    if (indTo) return `Jusqu'au ${formatDateFr(indTo)}`;
+  const buildPeriodeLabel = (from: string, to: string): string => {
+    if (from && to) return `Du ${formatDateFr(from)} au ${formatDateFr(to)}`;
+    if (from) return `À partir du ${formatDateFr(from)}`;
+    if (to) return `Jusqu'au ${formatDateFr(to)}`;
     return "";
+  };
+
+  const medPeriodeLabel = useMemo(() => buildPeriodeLabel(medFrom, medTo), [medFrom, medTo]);
+
+  const displayedMedicaments = useMemo(() => {
+    if (!medPeriodeLabel) return filteredMedicaments as unknown as Record<string, unknown>[];
+    return (filteredMedicaments as unknown as Record<string, unknown>[]).map((r) => ({ ...r, periode: medPeriodeLabel }));
+  }, [filteredMedicaments, medPeriodeLabel]);
+
+  const indPeriodeLabel = useMemo(() => {
+    return buildPeriodeLabel(indFrom, indTo);
   }, [indFrom, indTo]);
 
   const displayedIndicateurs = useMemo(() => {
@@ -173,6 +184,13 @@ export default function AdminConsultation() {
     });
   }, [cartographies, cartEss, cartFrom, cartTo]);
 
+  const cartPeriodeLabel = useMemo(() => buildPeriodeLabel(cartFrom, cartTo), [cartFrom, cartTo]);
+
+  const displayedCartographies = useMemo(() => {
+    if (!cartPeriodeLabel) return filteredCartographies as unknown as Record<string, unknown>[];
+    return (filteredCartographies as unknown as Record<string, unknown>[]).map((r) => ({ ...r, periode: cartPeriodeLabel }));
+  }, [filteredCartographies, cartPeriodeLabel]);
+
   const datasets = [
     {
       label: "Personnels", rows: filteredPersonnels, columns: [
@@ -189,7 +207,7 @@ export default function AdminConsultation() {
       ], file: "personnels"
     },
     {
-      label: "Médicaments", rows: filteredMedicaments, columns: [
+      label: "Médicaments", rows: displayedMedicaments, columns: [
         { field: "id", headerName: "ID", width: 70 },
         {
           field: "id_ess",
@@ -232,7 +250,7 @@ export default function AdminConsultation() {
       ], file: "indicateurs"
     },
     {
-      label: "Cartographies", rows: filteredCartographies, columns: [
+      label: "Cartographies", rows: displayedCartographies, columns: [
         { field: "id", headerName: "ID", width: 70 },
         {
           field: "id_ess",
@@ -251,7 +269,9 @@ export default function AdminConsultation() {
   const exportRows = (current.rows as unknown as Record<string, unknown>[])
     .map((r) => {
       const flat = flattenRowForExport(r as Record<string, unknown>);
+      if (tab === 1 && medPeriodeLabel) flat.periode = medPeriodeLabel;
       if (tab === 2 && indPeriodeLabel) flat.periode = indPeriodeLabel;
+      if (tab === 3 && cartPeriodeLabel) flat.periode = cartPeriodeLabel;
       return flat;
     });
 
