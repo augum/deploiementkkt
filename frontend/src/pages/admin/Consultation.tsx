@@ -15,6 +15,19 @@ import { indicateurThunks } from "@/redux/reducers/indicateurSlice";
 import { cartographieThunks } from "@/redux/reducers/cartographieSlice";
 import { etablissementThunks } from "@/redux/reducers/etablissementSlice";
 import { rowFk, resolveNestedLabel, flattenRowForExport } from "@/utils/normalizeRow";
+import { maxTodayInputProps, isFutureIso, NO_FUTURE_DATE_MESSAGE } from "@/utils/dateConstraints";
+import { toast } from "react-toastify";
+
+function handleDateFilterChange(setter: (v: string) => void) {
+  return (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const v = e.target.value;
+    if (isFutureIso(v)) {
+      toast.error(NO_FUTURE_DATE_MESSAGE);
+      return;
+    }
+    setter(v);
+  };
+}
 
 export default function AdminConsultation() {
   const dispatch = useAppDispatch();
@@ -270,7 +283,8 @@ export default function AdminConsultation() {
                 label="Du"
                 InputLabelProps={{ shrink: true }}
                 value={persFrom}
-                onChange={(e) => setPersFrom(e.target.value)}
+                onChange={handleDateFilterChange(setPersFrom)}
+                inputProps={maxTodayInputProps()}
               />
               <TextField
                 type="date"
@@ -278,7 +292,8 @@ export default function AdminConsultation() {
                 label="Au"
                 InputLabelProps={{ shrink: true }}
                 value={persTo}
-                onChange={(e) => setPersTo(e.target.value)}
+                onChange={handleDateFilterChange(setPersTo)}
+                inputProps={maxTodayInputProps()}
               />
               <Button
                 variant="text"
@@ -309,7 +324,8 @@ export default function AdminConsultation() {
                 label="Du"
                 InputLabelProps={{ shrink: true }}
                 value={medFrom}
-                onChange={(e) => setMedFrom(e.target.value)}
+                onChange={handleDateFilterChange(setMedFrom)}
+                inputProps={maxTodayInputProps()}
               />
               <TextField
                 type="date"
@@ -317,7 +333,8 @@ export default function AdminConsultation() {
                 label="Au"
                 InputLabelProps={{ shrink: true }}
                 value={medTo}
-                onChange={(e) => setMedTo(e.target.value)}
+                onChange={handleDateFilterChange(setMedTo)}
+                inputProps={maxTodayInputProps()}
               />
               <Button
                 variant="text"
@@ -348,7 +365,8 @@ export default function AdminConsultation() {
                 label="Du"
                 InputLabelProps={{ shrink: true }}
                 value={indFrom}
-                onChange={(e) => setIndFrom(e.target.value)}
+                onChange={handleDateFilterChange(setIndFrom)}
+                inputProps={maxTodayInputProps()}
               />
               <TextField
                 type="date"
@@ -356,7 +374,8 @@ export default function AdminConsultation() {
                 label="Au"
                 InputLabelProps={{ shrink: true }}
                 value={indTo}
-                onChange={(e) => setIndTo(e.target.value)}
+                onChange={handleDateFilterChange(setIndTo)}
+                inputProps={maxTodayInputProps()}
               />
               <Button
                 variant="text"
@@ -387,7 +406,8 @@ export default function AdminConsultation() {
                 label="Du"
                 InputLabelProps={{ shrink: true }}
                 value={cartFrom}
-                onChange={(e) => setCartFrom(e.target.value)}
+                onChange={handleDateFilterChange(setCartFrom)}
+                inputProps={maxTodayInputProps()}
               />
               <TextField
                 type="date"
@@ -395,7 +415,8 @@ export default function AdminConsultation() {
                 label="Au"
                 InputLabelProps={{ shrink: true }}
                 value={cartTo}
-                onChange={(e) => setCartTo(e.target.value)}
+                onChange={handleDateFilterChange(setCartTo)}
+                inputProps={maxTodayInputProps()}
               />
               <Button
                 variant="text"

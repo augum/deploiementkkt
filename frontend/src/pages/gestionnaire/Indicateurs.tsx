@@ -24,13 +24,15 @@ import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { indicateurThunks } from "@/redux/reducers/indicateurSlice";
 import type { Indicateur } from "@/services/indicateurService";
 import { resolveNestedLabel, NESTED_LABEL_MAP, collectDynamicKeys, rowFk } from "@/utils/normalizeRow";
+import { notFutureYupTest, todayIso } from "@/utils/dateConstraints";
 
 const num = yup.number().typeError("Nombre").min(0).required();
 const schema = yup.object({
   periode: yup
     .string()
     .required("Période obligatoire")
-    .matches(/^\d{4}-\d{2}-\d{2}$/, "Format attendu : YYYY-MM-DD"),
+    .matches(/^\d{4}-\d{2}-\d{2}$/, "Format attendu : YYYY-MM-DD")
+    .test(notFutureYupTest()),
   nv_casCuratif: num, cpn1: num, cpn1_16: num, cpn4: num, apa: num,
   nv_acc_pf: num, diabeteNotification: num, transfusion: num,
   transfusionTeste4Marquer: num, dc_neonat: num, dc_maternel: num,
@@ -99,7 +101,7 @@ const summaryLabels: Record<string, string> = {
 };
 
 const emptyValues: Omit<Indicateur, "id" | "id_ess"> = {
-  periode: "",
+  periode: todayIso(),
   nv_casCuratif: 0, cpn1: 0, cpn1_16: 0, cpn4: 0, apa: 0,
   nv_acc_pf: 0, diabeteNotification: 0, transfusion: 0,
   transfusionTeste4Marquer: 0, dc_neonat: 0, dc_maternel: 0,

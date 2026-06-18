@@ -13,12 +13,14 @@ import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { medicamentThunks } from "@/redux/reducers/medicamentSlice";
 import type { Medicament } from "@/services/medicamentService";
 import { resolveNestedLabel, flattenRowForExport, rowFk } from "@/utils/normalizeRow";
+import { notFutureYupTest, todayIso } from "@/utils/dateConstraints";
 
 const schema = yup.object({
   periode: yup
     .string()
     .required("Période obligatoire")
-    .matches(/^\d{4}-\d{2}-\d{2}$/, "Format attendu : YYYY-MM-DD"),
+    .matches(/^\d{4}-\d{2}-\d{2}$/, "Format attendu : YYYY-MM-DD")
+    .test(notFutureYupTest()),
   capital_depart: yup.number().typeError("Nombre").min(0).required(),
   capital_fin_moi: yup.number().typeError("Nombre").min(0).required(),
   croissance: yup.string().required("Obligatoire"),
@@ -33,7 +35,7 @@ const fields: FieldDef[] = [
   { name: "benefice", label: "Bénéfice (ex: 5000$)", type: "text", required: true },
 ];
 
-const emptyValues = { periode: "", capital_depart: 0, capital_fin_moi: 0, croissance: "", benefice: "" };
+const emptyValues = { periode: todayIso(), capital_depart: 0, capital_fin_moi: 0, croissance: "", benefice: "" };
 
 export default function GestionnaireMedicaments() {
   const dispatch = useAppDispatch();

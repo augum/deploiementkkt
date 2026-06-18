@@ -15,6 +15,9 @@ import { Button as ShadcnButton } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { LoadingButton } from "@/components/LoadingButton";
+import { endOfToday, todayIso, maxTodayInputProps, isFutureIso, NO_FUTURE_DATE_MESSAGE } from "@/utils/dateConstraints";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 export interface StepDef {
   label: string;
@@ -49,6 +52,20 @@ export function StepperForm<T extends FieldValues>({
   });
 
   const values = watch();
+
+  // Default datepicker / date fields to today if empty (centralized).
+  useEffect(() => {
+    for (const step of steps) {
+      for (const f of step.fields) {
+        if (f.type !== "datepicker" && f.type !== "date") continue;
+        const v = (values as Record<string, unknown>)[f.name];
+        if (!v) {
+          setValue(f.name as Path<T>, todayIso() as never, { shouldValidate: true });
+        }
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const next = async () => {
     const names = steps[active].fields.map((f) => f.name as Path<T>);
@@ -119,9 +136,15 @@ export function StepperForm<T extends FieldValues>({
                 selected={selected}
                 onSelect={(date) => {
                   const iso = date ? format(date, "yyyy-MM-dd") : "";
+                  if (isFutureIso(iso)) {
+                    toast.error(NO_FUTURE_DATE_MESSAGE);
+                    return;
+                  }
                   setValue(f.name as Path<T>, iso as never, { shouldValidate: true });
                 }}
                 initialFocus
+                disabled={{ after: endOfToday() }}
+                defaultMonth={selected ?? new Date()}
                 className={cn("p-3 pointer-events-auto")}
               />
             </PopoverContent>
@@ -151,7 +174,13 @@ export function StepperForm<T extends FieldValues>({
         label={f.label}
         type={f.type === "number" ? "number" : f.type === "date" ? "date" : "text"}
         InputLabelProps={f.type === "date" ? { shrink: true } : undefined}
-        {...register(f.name as Path<T>, { valueAsNumber: f.type === "number" })}
+        {...register(f.name as Path<T>, {
+          valueAsNumber: f.type === "number",
+          validate: f.type === "date"
+            ? (v) => !isFutureIso(v as string) || NO_FUTURE_DATE_MESSAGE
+            : undefined,
+        })}
+        inputProps={f.type === "date" ? maxTodayInputProps() : undefined}
         error={!!errorMsg} helperText={errorMsg || f.helperText}
       />
     );
