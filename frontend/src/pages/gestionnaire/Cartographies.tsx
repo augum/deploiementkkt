@@ -73,7 +73,7 @@ export default function GestionnaireCartographies() {
     { name: "distance_bdom", label: "Distance BDOM (ex: 10km)", type: "text", required: true },
     { name: "population_cible", label: "Population cible", type: "number", required: false },
     {
-      name: "id_se", label: "Source d'énergie", type: "select", required: true,
+      name: "id_se", label: "Source énergie", type: "select", required: true,
       options: sources.map((s) => ({ value: s.id ?? 0, label: s.libelle ?? "—" })),
     },
     { name: "presence_blocop", label: "Présence bloc opératoire", type: "boolean" },
