@@ -71,7 +71,7 @@ export default function GestionnaireCartographies() {
 
   const fields: FieldDef[] = [
     { name: "distance_bdom", label: "Distance BDOM (ex: 10km)", type: "text", required: true },
-    { name: "population_cible", label: "Population cible (ex: Rural)", type: "text", required: true },
+    { name: "population_cible", label: "Population cible", type: "number", required: true },
     {
       name: "id_se", label: "Source d'énergie", type: "select", required: true,
       options: sources.map((s) => ({ value: s.id ?? 0, label: s.libelle ?? "—" })),
