@@ -77,6 +77,25 @@ export default function AdminConsultation() {
     });
   }, [personnels, persEss, persFrom, persTo]);
 
+  const sortedPersonnels = useMemo(() => {
+    const essById = new Map<string, { id?: number; nom?: string }>();
+    for (const e of etablissements) {
+      essById.set(String(e.id), e as { id?: number; nom?: string });
+    }
+    return [...filteredPersonnels]
+      .map((p) => {
+        const r = p as unknown as Record<string, unknown>;
+        const essKey = String(rowFk("id_ess", r) ?? "");
+        const canonicalEss = essById.get(essKey) ?? (r.etablissement as { id?: number; nom?: string } | undefined) ?? null;
+        return { ...r, etablissement: canonicalEss } as Record<string, unknown>;
+      })
+      .sort((a, b) => {
+        const ai = typeof a.id === "number" ? a.id : Number(a.id ?? 0);
+        const bi = typeof b.id === "number" ? b.id : Number(b.id ?? 0);
+        return bi - ai;
+      });
+  }, [filteredPersonnels, etablissements]);
+
   const filteredMedicaments = useMemo(() => {
     return medicaments.filter((m) => {
       const r = m as unknown as Record<string, unknown>;
@@ -193,8 +212,8 @@ export default function AdminConsultation() {
 
   const datasets = [
     {
-      label: "Personnels", rows: filteredPersonnels, columns: [
-        { field: "id", headerName: "ID", width: 70 },
+      label: "Personnels", rows: sortedPersonnels, columns: [
+        { field: "id", headerName: "ID", width: 80 },
         {
           field: "id_ess",
           headerName: "Structure",
@@ -203,7 +222,23 @@ export default function AdminConsultation() {
             resolveNestedLabel("id_ess", row, rowFk("id_ess", row)),
         },
         { field: "nb_agent_matricule", headerName: "Agents matr.", flex: 1 },
-        { field: "nb_agent_nu", headerName: "Non matr.", flex: 1 },
+        {
+          field: "__actions",
+          headerName: "Actions",
+          sortable: false,
+          filterable: false,
+          width: 140,
+          renderCell: (params: { row: Record<string, unknown> }) => (
+            <Button
+              size="small"
+              variant="outlined"
+              startIcon={<VisibilityIcon fontSize="small" />}
+              onClick={() => setDetail(params.row)}
+            >
+              Détail
+            </Button>
+          ),
+        },
       ], file: "personnels"
     },
     {

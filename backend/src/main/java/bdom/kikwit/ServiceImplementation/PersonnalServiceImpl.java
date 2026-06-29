@@ -62,7 +62,7 @@ public class PersonnalServiceImpl implements PersonnalService {
     public List<PersonnelResponseDto> getAll() {
        List<Personnel>  list = repository.findAll();
        for(Personnel pers:list){
-           Etablissement etablissement = etablissementRepository.findById(pers.getId()).get();
+           Etablissement etablissement = etablissementRepository.findById(pers.getId_ess()).get();
            pers.setEtablissement(etablissement);
        }
         return list.stream()
